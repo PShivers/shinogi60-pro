@@ -60,16 +60,17 @@ Resolve all violations before manufacturing.
 
 ### Planned Hardware Components
 
-Based on katana60-pro and tsuka60-pro designs:
-- **Microcontroller**: ATmega32U4 (QFN-44, USB-capable MCU)
-- **USB Interface**: USB Type-C connector (HRO TYPE-C-31-M-12 or similar)
+Wireless design using nice!nano controller:
+- **Microcontroller Module**: nice!nano v2 (nRF52840-based, Pro Micro footprint)
+- **Connectivity**: Bluetooth LE 5.0 + USB-C for charging/wired mode
 - **Switch Matrix**: ~60-70 switches with anti-ghosting diodes (SOD-123)
 - **Hotswap Sockets**: Kailh MX-style sockets (no soldering required)
 - **Stabilizers**: PCB-mount stabilizers for larger keys (2u, 6.25u, 7u)
-- **Protection**: SRV05-4 ESD protection, polyfuse
-- **Power**: 5V regulator with filtering, 16MHz crystal for MCU clock
+- **Battery**: LiPo battery (301230 or similar, ~150-400mAh)
+- **Power Management**: On/off switch, battery connector (JST 2-pin)
+- **Protection**: ESD protection for USB, polyfuse
 - **LEDs**: Optional SK6812 MINI-E RGB addressable LEDs (reverse-mount)
-- **Programming**: ISP header for firmware flashing
+- **Firmware**: ZMK (Zephyr-based, wireless-optimized)
 
 ### Directory Structure
 
@@ -166,6 +167,42 @@ This project combines the best elements from both predecessor designs:
 - **From tsuka60-pro**: [Document specific design elements as you develop]
 - **New innovations**: [Document new features and improvements]
 
+## nice!nano Integration
+
+The nice!nano controller uses a **Pro Micro footprint** which means:
+- Standard 2x12 pin header layout
+- USB-C connector on the controller itself
+- Battery connects via JST connector to nice!nano
+- Power switch can be placed between battery and nice!nano
+- No need for separate USB-C connector on PCB (optional for aesthetics/charging)
+
+### Key Differences from ATmega32U4 Designs
+- **No crystal required** - nRF52840 has internal oscillator
+- **No USB routing on PCB** - handled by nice!nano module
+- **Battery management on controller** - built into nice!nano
+- **3.3V logic** - nice!nano operates at 3.3V (compatible with 5V switches/LEDs)
+- **Wireless operation** - Bluetooth LE radio integrated
+
+### Footprint Notes
+- Use ProMicro or ProMicroReversible footprint from marbastlib
+- Include battery connector footprint (JST ACH BM02B-ACHSS)
+- Add power switch footprint (MSK12C02-HB or similar)
+- RGB LEDs work with nice!nano's 3.3V logic
+
+## ZMK Firmware Development
+
+Once hardware is validated:
+
+1. Create a ZMK config repository (separate from hardware)
+2. Define keyboard shield in ZMK format
+3. Configure matrix pins matching PCB layout
+4. Set up GitHub Actions for automatic builds
+5. Test wireless connectivity and battery life
+
+ZMK resources:
+- [ZMK Documentation](https://zmk.dev/docs)
+- [ZMK Discord Community](https://zmk.dev/community/discord/invite)
+
 ## Development Practices
 
 - Detailed commit messages documenting design changes
@@ -174,6 +211,8 @@ This project combines the best elements from both predecessor designs:
 - Peer review recommended before prototype orders
 - Use 3D visualization to validate mechanical fit
 - Test hotswap socket clearances with actual switches
+- Verify nice!nano pin assignments match matrix layout
+- Test battery life with target battery capacity
 
 ## License
 
