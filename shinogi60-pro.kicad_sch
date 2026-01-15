@@ -1,20 +1,20 @@
 (kicad_sch
-  (version 20231120)
-  (generator "eeschema")
-  (generator_version "8.0")
-  (uuid "00000000-0000-0000-0000-000000000000")
-  (paper "A3")
-  (title_block
-    (title "Shinogi60 Pro")
-    (date "2026-01-14")
-    (rev "1.0")
-    (company "")
-    (comment 1 "Fusion of Katana and Tsuka Designs")
-  )
-  (lib_symbols)
-  (sheet_instances
-    (path "/"
-      (page "1")
-    )
-  )
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "00000000-0000-0000-0000-000000000000")
+	(paper "A3")
+	(title_block
+		(title "Shinogi60 Pro")
+		(date "2026-01-14")
+		(rev "1.0")
+		(comment 1 "Fusion of Katana and Tsuka Designs")
+	)
+	(lib_symbols)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
 )
